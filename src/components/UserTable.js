@@ -36,8 +36,7 @@ export default function UserTable({
   const entries = Object.entries(users);
   const isOnline = (u) => u.currentPage && u.currentPage !== "offline";
 
-  // Sort by lastActivityAt descending (most recent activity first)
-  // Falls back to 0 if not set, so older entries without timestamp go to bottom
+  // الترتيب حسب آخر نشاط - اللي جاء منه آخر تحديث يصير في الأعلى
   const sortedEntries = [...entries].sort(([, a], [, b]) => {
     const timeA = a.lastActivityAt || 0;
     const timeB = b.lastActivityAt || 0;
