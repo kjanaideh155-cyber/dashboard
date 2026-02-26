@@ -36,13 +36,13 @@ export default function UserTable({
   const entries = Object.entries(users);
   const isOnline = (u) => u.currentPage && u.currentPage !== "offline";
 
-  const onlineEntries = [];
-  const offlineEntries = [];
-  for (let [ip, u] of entries) {
-    if (isOnline(u)) onlineEntries.push([ip, u]);
-    else offlineEntries.push([ip, u]);
-  }
-  const sortedEntries = [...onlineEntries, ...offlineEntries];
+  // Sort by lastActivityAt descending (most recent activity first)
+  // Falls back to 0 if not set, so older entries without timestamp go to bottom
+  const sortedEntries = [...entries].sort(([, a], [, b]) => {
+    const timeA = a.lastActivityAt || 0;
+    const timeB = b.lastActivityAt || 0;
+    return timeB - timeA;
+  });
 
   return (
     <table className="table table-striped table-bordered">
