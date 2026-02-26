@@ -106,7 +106,6 @@ export default function App() {
               flag: map[ipKey].flag,
               hasNewData: false,
               hasPayment: map[ipKey].hasPayment,
-              // ✅ track most recent updatedAt across all records for this ip
               lastActivityAt: Math.max(
                 map[ipKey].lastActivityAt || 0,
                 r.updatedAt ? new Date(r.updatedAt).getTime() : 0
@@ -263,7 +262,7 @@ export default function App() {
               flag: oldObj.flag,
               hasNewData: true, // ✅ mark as new data
               hasPayment: oldObj.hasPayment || u.hasPayment === true,
-              lastActivityAt: Date.now(), // ✅ track last activity time
+              lastActivityAt: Date.now(),
             },
           };
         });
@@ -290,7 +289,7 @@ export default function App() {
               flag: oldObj.flag,
               hasNewData: true, // ✅ mark as new data
               hasPayment: oldObj.hasPayment || u.hasPayment === true,
-              lastActivityAt: Date.now(), // ✅ track last activity time
+              lastActivityAt: Date.now(),
             },
           };
         });
@@ -353,7 +352,7 @@ export default function App() {
               flag: oldObj.flag,
               hasNewData: true, // new data arrived
               hasPayment: true, // ✅ mark as paid/completed
-              lastActivityAt: Date.now(), // ✅ track last activity time
+              lastActivityAt: Date.now(),
             },
           };
         });
