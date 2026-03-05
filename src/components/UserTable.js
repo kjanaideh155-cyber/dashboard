@@ -12,7 +12,7 @@ export default function UserTable({
   const handleDelete = async (ip) => {
     if (!window.confirm(`Really delete all data for ${ip}?`)) return;
 
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token_v2");
     try {
       const res = await fetch(
         `${API_BASE}/api/users/${encodeURIComponent(ip)}`,
