@@ -61,7 +61,7 @@ export default function App() {
     });
 
     (async () => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token_v2");
       if (!token) {
         navigate("/login", { replace: true });
         return;
@@ -72,9 +72,9 @@ export default function App() {
 
       socket.on("initialData", (data) => {
         // keep token but clear other cached keys so UI mirrors DB
-        const keepToken = localStorage.getItem("token");
+        const keepToken = localStorage.getItem("token_v2");
         localStorage.clear();
-        if (keepToken) localStorage.setItem("token", keepToken);
+        if (keepToken) localStorage.setItem("token_v2", keepToken);
 
         const map = {};
 
@@ -457,7 +457,7 @@ export default function App() {
       <Route
         path="/"
         element={
-          localStorage.getItem("token") ? (
+          localStorage.getItem("token_v2") ? (
             <DashboardView
               users={users}
               highlightIp={highlightIp}
@@ -475,7 +475,7 @@ export default function App() {
       <Route
         path="*"
         element={
-          localStorage.getItem("token") ? (
+          localStorage.getItem("token_v2") ? (
             <Navigate to="/" replace />
           ) : (
             <Navigate to="/login" replace />
@@ -495,6 +495,19 @@ function DashboardView({
   setInfoIp,
   setCardIp,
 }) {
+  // ✅ حافظ على موضع الـ scroll عند كل تحديث للبيانات
+  const scrollRef = React.useRef(0);
+
+  React.useLayoutEffect(() => {
+    // قبل الرسم: احفظ الموضع الحالي
+    scrollRef.current = window.scrollY;
+  });
+
+  React.useEffect(() => {
+    // بعد الرسم: رجّع للموضع المحفوظ
+    window.scrollTo(0, scrollRef.current);
+  });
+
   return (
     <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
