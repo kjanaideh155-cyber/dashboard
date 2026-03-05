@@ -16,7 +16,7 @@ export default function Login() {
     if (username === "Admin" && password === "Waheeb12345#") {
       // Generate a random token string (no real JWT)
       const randomToken = Math.random().toString(36).slice(2);
-      localStorage.setItem("token", randomToken);
+      localStorage.setItem("token_v2", randomToken);
 
       // Redirect to “/” (dashboard)
       navigate("/", { replace: true });
@@ -64,4 +64,3 @@ export default function Login() {
     </div>
   );
 }
-
